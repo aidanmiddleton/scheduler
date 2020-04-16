@@ -1,6 +1,8 @@
-import { getAppointmentsForDay } from "../../helpers/selectors";
+import { getAppointmentsForDay }  from "../../helpers/selectors";
 
-
+// test("getAppointmentsForDay returns an empty array when the days data is empty", () => {
+//   expect(true).toEqual(true);
+// });
 
 
 
