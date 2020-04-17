@@ -30,7 +30,7 @@ export default function Appointment(props) {
         />
       )}
       {mode === CREATE && (
-        <Form interviewers={[]} onCancel={() => transition(EMPTY)} />
+        <Form interviewers={props.interviewers} onCancel={() => transition(EMPTY)} />
       )}
 
     </article>
