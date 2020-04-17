@@ -3,56 +3,20 @@ import React, { useState, useEffect } from "react";
 import "components/Application.scss";
 import Appointment from "components/Appointment"
 import axios from "axios";
-
-
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "3pm",
-    interview: {
-      student: "Joe Mama",
-      interviewer: {
-        id: 2,
-        name: "Hugh Janus",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 4,
-    time: "4pm",
-    interview: {
-      student: "Jack Suede",
-      interviewer: {
-        id: 2,
-        name: "Johnny Sanchez",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  }
-];
-
+import { getAppointmentsForDay } from "../helpers/selectors" 
 
 export default function Application(props) {
-  const [day, setDay] = useState("Monday");
-  const [days, setDays] = useState([])
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {},
+    interviewers: {}
+  });
   
+  const setDay = day => setState({ ...state, day });
+
+  const appointments = getAppointmentsForDay(state, state.day)
+
   const allAppointments = appointments.map(appointment => {
     return (
       <Appointment key={appointment.id} {...appointment} />
@@ -60,13 +24,19 @@ export default function Application(props) {
   })
 
   useEffect(() => {
-    axios
-      .get('/api/days')
-      .then((response) => {
-        console.log(response);
-        setDays(response.data);
-      })
+    
+    Promise.all([
+      axios.get('/api/days'),
+      axios.get('/api/appointments'),
+      axios.get('/api/interviewers')
+    ])
+      .then((all) => {
+        setState(prev => ({ days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
+        // console.log(state.interviewers)
+      });
   }, [])
+
+  console.log(state.interviewers)
 
   return (
     <main className="layout">
@@ -80,8 +50,8 @@ export default function Application(props) {
       <nav className="sidebar__menu" 
       >
         <DayList
-          days={days}
-          day={day}
+          days={state.days}
+          day={state.day}
           setDay={setDay}
         />
       </nav>
