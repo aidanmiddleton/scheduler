@@ -3,13 +3,15 @@ import "components/Appointment/styles.scss";
 import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
-import Form from "./Form"
+import Form from "./Form";
+import Status from "./Status"
 
 import { useVisualMode } from "hooks/useVisualMode"
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+const SAVE = "SAVE";
 
 
 
@@ -26,8 +28,10 @@ export default function Appointment(props) {
       interviewer
     };
 
+    transition(SAVE);
+
     props.bookInterview(props.id, interview)
-    transition(SHOW);
+      .then(() => transition(SHOW))
   }
   
   return (
@@ -43,6 +47,7 @@ export default function Appointment(props) {
       {mode === CREATE && (
         <Form interviewers={props.interviewers} onSave={save} onCancel={() => transition(EMPTY)} />
       )}
+      {mode === SAVE && <Status message="Saving" />}
 
     </article>
   );
