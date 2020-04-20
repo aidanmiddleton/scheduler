@@ -67,7 +67,19 @@ export default function useApplicationData() {
 
     return axios
     .delete(`http://localhost:8001/api/appointments/${id}`)
-    .then(response => setState(state => ({ ...state, appointments })));
+    .then(response => setState(state => ({ ...state, appointments })))
+    .then( 
+      () => {
+        const currentDayObject = state.days.filter(obj => {return obj.name === state.day})[0];
+        const currentDayIndex = currentDayObject.id - 1;
+        const newDayObect = ({...currentDayObject, spots: currentDayObject.spots + 1})
+        setState((state) => {
+          const newState = ({...state});
+          newState.days[currentDayIndex] = newDayObect
+
+          return newState;     
+      })
+    })
   }
 
   return {
