@@ -39,6 +39,18 @@ export default function useApplicationData() {
     return axios
     .put(`/api/appointments/${id}`, { interview })
     .then(response => setState(state => ({ ...state, appointments })))
+    .then( 
+      () => {
+        const currentDayObject = state.days.filter(obj => {return obj.name === state.day})[0];
+        const currentDayIndex = currentDayObject.id - 1;
+        const newDayObect = ({...currentDayObject, spots: currentDayObject.spots - 1})
+        setState((state) => {
+          const newState = ({...state});
+          newState.days[currentDayIndex] = newDayObect
+
+          return newState;     
+      })
+    })
     
   }
 
