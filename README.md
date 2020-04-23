@@ -1,5 +1,12 @@
 # Interview Scheduler
 
+
+## Description
+
+Interview Scheduler is a basic scheduling app. It was built as an excersise to learn the basics of React, Storybook, Jest, and Cypress. It allows for the creation, deletion, and editing of interview slots. 
+
+For persistent data, you can install and run the scheduler API, found here: https://github.com/aidanmiddleton/scheduler-api
+
 ## Setup
 
 Install dependencies with `npm install`.
