@@ -20,4 +20,11 @@ npm test
 
 ```sh
 npm run storybook
+
+
 ```
+## Screenshots
+
+!["Interview Creation View"](https://github.com/aidanmiddleton/scheduler/blob/master/docs/scheduler_create_view.png?raw=true)
+
+!["Delete Confirmation View"](https://github.com/aidanmiddleton/scheduler/blob/master/docs/scheduler_delete_confirmation.png?raw=true)
