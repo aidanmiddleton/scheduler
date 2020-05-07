@@ -25,7 +25,7 @@ export default function useApplicationData() {
       });
   }, [])
 
-
+  // ({...currentDayObject, spots: currentDayObject.spots - 1})
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -42,9 +42,17 @@ export default function useApplicationData() {
     .then(response => setState(state => ({ ...state, appointments })))
     .then( 
       () => {
+
         const currentDayObject = state.days.filter(obj => {return obj.name === state.day})[0];
         const currentDayIndex = currentDayObject.id - 1;
-        const newDayObect = ({...currentDayObject, spots: currentDayObject.spots - 1})
+        let newDayObect = {}
+        console.log(state.appointments.interview)
+        if (!state.appointments[id].interview) {
+
+          newDayObect = ({...currentDayObject, spots: currentDayObject.spots - 1})
+        } else {
+          newDayObect = ({...currentDayObject})
+        }
         setState((state) => {
           const newState = ({...state});
           newState.days[currentDayIndex] = newDayObect
