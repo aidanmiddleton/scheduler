@@ -1,12 +1,11 @@
 import React from "react";
 import "components/Appointment/styles.scss";
-import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
-import Status from "./Status"
-import Confirm from "./Confirm"
-import Error from "./Error"
+import Status from "./Status";
+import Confirm from "./Confirm";
+import Error from "./Error";
 
 import { useVisualMode } from "hooks/useVisualMode"
 

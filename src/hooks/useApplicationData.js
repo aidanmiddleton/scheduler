@@ -23,7 +23,7 @@ export default function useApplicationData() {
         console.log('this is the state ', state)
         // console.log(state.interviewers)
       });
-  }, [])
+  }, [ state ])
 
   // ({...currentDayObject, spots: currentDayObject.spots - 1})
   function bookInterview(id, interview) {
